@@ -20,29 +20,44 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="空是一种态度">
-<meta property="og:type" content="website">
-<meta property="og:title" content="yanglulin&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="1.1：ZooKeeper使用场景： ZooKeeper 是一个分布式服务框架，它主要是用来解决分布式 应用中经常遇到的一些数据管理问题，如：命名服务、状态同步 、 配置中心 、集群管理等。 1.1.1：命名服务： 命名服务是分布式系统中比较常见的一类场景。命名服务是分布式系统最基本的公共服务之一。在分布式系统中，被命名的实体通常可以是集群中的机器、提供的服务地址或远程对象等 这些我们都可以统称它">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZooKeeper,kafka">
+<meta property="og:url" content="http://yoursite.com/p/1687987080.html">
 <meta property="og:site_name" content="yanglulin&#39;s blog">
-<meta property="og:description" content="空是一种态度">
+<meta property="og:description" content="1.1：ZooKeeper使用场景： ZooKeeper 是一个分布式服务框架，它主要是用来解决分布式 应用中经常遇到的一些数据管理问题，如：命名服务、状态同步 、 配置中心 、集群管理等。 1.1.1：命名服务： 命名服务是分布式系统中比较常见的一类场景。命名服务是分布式系统最基本的公共服务之一。在分布式系统中，被命名的实体通常可以是集群中的机器、提供的服务地址或远程对象等 这些我们都可以统称它">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210628171714723.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210628171843356.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210628171900855.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210628175906603.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210628175920356.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210628180023945.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210629082951682.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210629083059312.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210629083255323.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210629085814083.png">
+<meta property="article:published_time" content="2021-06-28T09:11:21.000Z">
+<meta property="article:modified_time" content="2021-06-29T02:23:00.952Z">
+<meta property="article:tag" content="ZooKeeper">
+<meta property="article:tag" content="kafka">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210628171714723.png">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/p/1687987080.html">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>yanglulin's blog</title>
+  <title>ZooKeeper,kafka | yanglulin's blog</title>
   
 
 
@@ -150,9 +165,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -168,10 +184,9 @@
       <meta itemprop="name" content="yanglulin's blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/1687987080.html" class="post-title-link" itemprop="url">ZooKeeper,kafka</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          ZooKeeper,kafka
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -210,7 +225,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>1.1：ZooKeeper使用场景：</p>
+        <p>1.1：ZooKeeper使用场景：</p>
 <p>ZooKeeper 是一个分布式服务框架，它主要是用来解决分布式 应用中经常遇到的一些数据管理问题，如：命名服务、状态同步 、 配置中心 、集群管理等。</p>
 <p>1.1.1：命名服务：</p>
 <p>命名服务是分布式系统中比较常见的一类场景。命名服务是分布式系统最基本的公共服务之一。在分布式系统中，被命名的实体通常可以是集群中的机器、提供的服务地址或远程对象等 这些我们都可以统称它们为名字（ Name ），其中较为常见的就是一些分布式服务框架（如 RPC 、 RMI ）中的服务地址列表，通过使用命名 服务，客户端应用能够根据指定名字来获取资源的实体、服务地址和提供者的信息等。</p>
@@ -368,108 +383,34 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ZK-node1:~<span class="comment"># /usr/local/kafka/bin/kafka-topics.sh --delete --zookeeper 172.31.6.101:2181,172.31.6.102:2181,172.31.6.103:2181 --topic test</span></span><br><span class="line">Topic <span class="built_in">test</span> is marked <span class="keyword">for</span> deletion.</span><br></pre></td></tr></table></figure>
 
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/ZooKeeper/" rel="tag"># ZooKeeper</a>
+              <a href="/tags/kafka/" rel="tag"># kafka</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/3213210460.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="空是一种态度">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yanglulin's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/p/3213210460.html" class="post-title-link" itemprop="url">ZooKeeper</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-06-28 11:14:27 / 修改时间：11:56:47" itemprop="dateCreated datePublished" datetime="2021-06-28T11:14:27+08:00">2021-06-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ZooKeeper/" itemprop="url" rel="index"><span itemprop="name">ZooKeeper</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>转载自：<a target="_blank" rel="noopener" href="https://www.sohu.com/a/253808097_465221">https://www.sohu.com/a/253808097_465221</a></p>
-<p><img src="https://yanglulin.oss-cn-beijing.aliyuncs.com/79c742db526041d28ca624e03a41184d.jpeg" alt="img"></p>
-<p>前言</p>
-<p>相信大家对 ZooKeeper 应该不算陌生。但是你真的了解 ZooKeeper 是个什么东西吗？如果别人/面试官让你给他讲讲 ZooKeeper 是个什么东西，你能回答到什么地步呢？</p>
-<p>我本人曾经使用过 ZooKeeper 作为 Dubbo 的注册中心，另外在搭建 solr 集群的时候，我使用到了 ZooKeeper 作为 solr 集群的管理工具。前几天，总结项目经验的时候，我突然问自己 ZooKeeper 到底是个什么东西？想了半天，脑海中只是简单的能浮现出几句话：“①Zookeeper 可以被用作注册中心。 ②Zookeeper 是 Hadoop 生态系统的一员；③构建 Zookeeper 集群的时候，使用的服务器最好是奇数台。” 可见，我对于 Zookeeper 的理解仅仅是停留在了表面。</p>
-<p>所以，<strong>通过本文，希望带大家稍微详细的了解一下 ZooKeeper 。如果没有学过 ZooKeeper ，那么本文将会是你进入 ZooKeeper 大门的垫脚砖。如果你已经接触过 ZooKeeper ，那么本文将带你回顾一下 ZooKeeper 的一些基础概念。</strong></p>
-<p>最后，<strong>本文只涉及 ZooKeeper 的一些概念，并不涉及 ZooKeeper 的使用以及 ZooKeeper 集群的搭建。</strong>网上有介绍 ZooKeeper 的使用以及搭建 ZooKeeper 集群的文章，大家有需要可以自行查阅。</p>
-<p>一 什么是 ZooKeeperZooKeeper 的由来</p>
-<p><strong>下面这段内容摘自《从Paxos到Zookeeper 》第四章第一节的某段内容，推荐大家阅读以下：</strong></p>
-<blockquote>
-<p>Zookeeper最早起源于雅虎研究院的一个研究小组。在当时，研究人员发现，在雅虎内部很多大型系统基本都需要依赖一个类似的系统来进行分布式协调，但是这些系统往往都存在分布式单点问题。所以，<strong>雅虎的开发人员就试图开发一个通用的无单点问题的分布式协调框架，以便让开发人员将精力集中在处理业务逻辑上。</strong></p>
-<p>关于“ZooKeeper”这个项目的名字，其实也有一段趣闻。在立项初期，考虑到之前内部很多项目都是使用动物的名字来命名的（例如著名的Pig项目),雅虎的工程师希望给这个项目也取一个动物的名字。时任研究院的首席科学家RaghuRamakrishnan开玩笑地说：“在这样下去，我们这儿就变成动物园了！”此话一出，大家纷纷表示就叫动物园管理员吧一一一因为各个以动物命名的分布式组件放在一起，<strong>雅虎的整个分布式系统看上去就像一个大型的动物园了，而Zookeeper正好要用来进行分布式环境的协调一一于是，Zookeeper的名字也就由此诞生了。</strong></p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/p/3213210460.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/p/3213210460.html" rel="prev" title="ZooKeeper">
+      <i class="fa fa-chevron-left"></i> ZooKeeper
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
