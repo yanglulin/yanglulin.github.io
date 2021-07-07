@@ -156,6 +156,250 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/4065722285.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="空是一种态度">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yanglulin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/4065722285.html" class="post-title-link" itemprop="url">docker</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-02 14:16:44 / 修改时间：17:41:33" itemprop="dateCreated datePublished" datetime="2021-07-02T14:16:44+08:00">2021-07-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>111</p>
+<p>Docker的组成：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/overview/">https://docs.docker.com/get-started/overview/</a></p>
+<p>Docker主机（Host）：一个物理机或虚拟机，用于运行Docker服务进程和容器</p>
+<p>Docker服务端（Server）：Docker守护进程，运行Docker容器</p>
+<p>Docker客户端（Client）：客户端使用Docker命令或者其他工具调用Docker API</p>
+<p>Docker仓库（Registry）：保存镜像的仓库，类似于git或svn这样的版本控制系统</p>
+<p>Docker镜像（Images）：镜像可以理解为创建实例使用的模板</p>
+<p>Docker容器（Container）：容器是从镜像生成对外提供服务的一个或一组服务</p>
+<p>官方仓库：</p>
+<p><a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a></p>
+<p>Docker安装及基础命令介绍：</p>
+<p>官方地址：</p>
+<p><a target="_blank" rel="noopener" href="https://www.docker.com/">https://www.docker.com/</a></p>
+<p>ubuntu安装docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@docker-server1:~<span class="comment"># cat docker-onekey-install.sh </span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line"></span><br><span class="line">curl -fsSL https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">sudo add-apt-repository <span class="string">&quot;deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu <span class="subst">$(lsb_release -cs)</span> stable&quot;</span></span><br><span class="line"></span><br><span class="line">sudo apt-get -y update</span><br><span class="line"></span><br><span class="line">root@docker-server1:~<span class="comment"># bash docker-onekey-install.sh</span></span><br><span class="line">root@docker-server1:~<span class="comment"># apt-cache madison docker-ce</span></span><br><span class="line">root@docker-server1:~<span class="comment"># apt install -y docker-ce=5:19.03.15~3-0~ubuntu-bionic docker-ce-cli=5:19.03.15~3-0~ubuntu-bionic</span></span><br><span class="line">root@docker-server1:~<span class="comment"># systemctl restart docker &amp;&amp; systemctl enable docker</span></span><br></pre></td></tr></table></figure>
+
+<p>验证docker版本</p>
+<p><img src="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210702143821951.png" alt="image-20210702143821951"></p>
+<p>验证docker0网卡</p>
+<p>在docker安装启动之后，默认会生成一个名称为docker0的网卡并且默认IP地址为172.17.0.1</p>
+<p><img src="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210702143947621.png" alt="image-20210702143947621"></p>
+<p>配置docker加速器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">root@docker-server1:~<span class="comment"># cat docker-speedup.sh </span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;registry-mirrors&quot;</span>: [<span class="string">&quot;https://9jnvsz3g.mirror.aliyuncs.com&quot;</span>]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br><span class="line">root@docker-server1:~<span class="comment"># </span></span><br><span class="line">root@docker-server1:~<span class="comment"># bash docker-speedup.sh</span></span><br></pre></td></tr></table></figure>
+
+<p>验证docker信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">root@docker-server1:~<span class="comment"># docker info</span></span><br><span class="line">Client:</span><br><span class="line"> Debug Mode: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Containers: 0 <span class="comment">#当前主机运行的容器总数</span></span><br><span class="line">  Running: 0 <span class="comment">#有几个容器是正在运行的</span></span><br><span class="line">  Paused: 0 <span class="comment">#有几个容器是暂停的</span></span><br><span class="line">  Stopped: 0 <span class="comment">#有几个容器是停止的</span></span><br><span class="line"> Images: 0 <span class="comment">#当前服务器的镜像数</span></span><br><span class="line"> Server Version: 19.03.15 <span class="comment">#服务器版本</span></span><br><span class="line"> Storage Driver: overlay2 <span class="comment">#正在使用的存储引擎</span></span><br><span class="line">  Backing Filesystem: extfs <span class="comment">#后端文件系统，即服务器的磁盘文件系统</span></span><br><span class="line">  Supports d_type: <span class="literal">true</span> <span class="comment">#是否支持d_type</span></span><br><span class="line">  Native Overlay Diff: <span class="literal">true</span> <span class="comment">#是否支持差异数据存储</span></span><br><span class="line"> Logging Driver: json-file <span class="comment">#日志类型</span></span><br><span class="line"> Cgroup Driver: cgroupfs 类型</span><br><span class="line"> Plugins: <span class="comment">#插件</span></span><br><span class="line">  Volume: <span class="built_in">local</span> <span class="comment">#卷</span></span><br><span class="line">  Network: bridge host ipvlan macvlan null overlay <span class="comment">#跨主机通信</span></span><br><span class="line">  Log: awslogs fluentd gcplogs gelf journald json-file <span class="built_in">local</span> logentries splunk syslog <span class="comment">#日志类型</span></span><br><span class="line"> Swarm: inactive <span class="comment">#是否支持swarm</span></span><br><span class="line"> Runtimes: runc <span class="comment">#已安装的容器运行时</span></span><br><span class="line"> Default Runtime: runc <span class="comment">#默认使用的容器运行时</span></span><br><span class="line"> Init Binary: docker-init <span class="comment">#初始化容器的守护进程，即pid为1的进程</span></span><br><span class="line"> containerd version: d71fcd7d8303cbf684402823e425e9dd2e99285d</span><br><span class="line"> runc version: b9ee9c6314599f1b4a7f497e1f1f856fe433d3b7</span><br><span class="line"> init version: fec3683</span><br><span class="line"> Security Options:</span><br><span class="line">  apparmor</span><br><span class="line">  seccomp</span><br><span class="line">   Profile: default</span><br><span class="line"> Kernel Version: 4.15.0-143-generic</span><br><span class="line"> Operating System: Ubuntu 18.04.5 LTS</span><br><span class="line"> OSType: linux</span><br><span class="line"> Architecture: x86_64</span><br><span class="line"> CPUs: 4</span><br><span class="line"> Total Memory: 3.83GiB</span><br><span class="line"> Name: docker-server1</span><br><span class="line"> ID: 6JUW:WSJZ:7KHC:46GJ:5XGM:QIC4:MUOJ:CDUB:T7BQ:GLVW:XBL7:4NEE</span><br><span class="line"> Docker Root Dir: /var/lib/docker <span class="comment">#宿主机数据保存目录</span></span><br><span class="line"> Debug Mode: <span class="literal">false</span></span><br><span class="line"> Registry: https://index.docker.io/v1/ <span class="comment">#镜像仓库</span></span><br><span class="line"> Labels:</span><br><span class="line"> Experimental: <span class="literal">false</span></span><br><span class="line"> Insecure Registries:</span><br><span class="line">  127.0.0.0/8</span><br><span class="line"> Registry Mirrors:</span><br><span class="line">  https://9jnvsz3g.mirror.aliyuncs.com/</span><br><span class="line"> Live Restore Enabled: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">WARNING: No swap <span class="built_in">limit</span> support <span class="comment">#系统警告信息（没有开启swap资源限制）</span></span><br><span class="line">root@docker-server1:~<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+<p>搜索镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">查看本地镜像：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">root@docker-server1:~<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">nginx               latest              4f380adfc10f        9 days ago          133MB</span><br><span class="line">alpine              latest              d4ff818577bc        2 weeks ago         5.6MB</span><br></pre></td></tr></table></figure>
+
+<p>镜像导出：</p>
+<p>导出方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@docker-server1:~<span class="comment"># docker save alpine -o /opt/alpine.tar.gz</span></span><br><span class="line">root@docker-server1:~<span class="comment"># ll /opt/alpine.tar.gz </span></span><br><span class="line">-rw------- 1 root root 5874688 Jul  2 15:06 /opt/alpine.tar.gz</span><br><span class="line">root@docker-server1:~<span class="comment"># </span></span><br><span class="line"></span><br><span class="line">root@docker-server1:~<span class="comment"># docker save alpine &gt; /opt/alpine-1.tar.gz </span></span><br><span class="line">root@docker-server1:~<span class="comment"># ll /opt/alpine-1.tar.gz </span></span><br><span class="line">-rw-r--r-- 1 root root 5874688 Jul  2 15:07 /opt/alpine-1.tar.gz</span><br><span class="line">root@docker-server1:~<span class="comment"># </span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>镜像导入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@docker-server1:~<span class="comment"># scp /opt/alpine.tar.gz 172.31.6.102:/opt</span></span><br><span class="line">root@docker-server2:~<span class="comment"># docker load &lt; /opt/alpine.tar.gz </span></span><br><span class="line">72e830a4dff5: Loading layer  5.865MB/5.865MB</span><br><span class="line">Loaded image: alpine:latest</span><br><span class="line"></span><br><span class="line">root@docker-server2:~<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">alpine              latest              d4ff818577bc        2 weeks ago         5.6MB</span><br><span class="line">root@docker-server2:~<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+<p>删除镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">root@docker-server1:~<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">nginx               latest              4f380adfc10f        9 days ago          133MB</span><br><span class="line">alpine              latest              d4ff818577bc        2 weeks ago         5.6MB</span><br><span class="line"></span><br><span class="line">root@docker-server1:~<span class="comment"># docker rmi nginx</span></span><br><span class="line">Untagged: nginx:latest</span><br><span class="line">Untagged: nginx@sha256:47ae43cdfc7064d28800bc42e79a429540c7c80168e8c8952778c0d5af1c09db</span><br><span class="line">Deleted: sha256:4f380adfc10f4cd34f775ae57a17d2835385efd5251d6dfe0f246b0018fb0399</span><br><span class="line">Deleted: sha256:2855bbcefcf95050e64049447e99e77efa2bff32374e586982d69be4612467ce</span><br><span class="line">Deleted: sha256:bad169ad8b30eab551acbb8cd8fbdcd824528189e3dd0cc52dd88a37bbf121cd</span><br><span class="line">Deleted: sha256:36d83ebf5fec7ae1be4c431f0945f2dbe6828ecdc936c604daa48f17c0b50ed7</span><br><span class="line">Deleted: sha256:b4c9a251dc81d52dd1cca9b4c69ca9e4db602a9a7974019f212846577f739699</span><br><span class="line">Deleted: sha256:038ca5b801cea48e9f40f6ffb4cda61a2fe0b6b0f378a7434a0d39d2575a4082</span><br><span class="line">Deleted: sha256:764055ebc9a7a290b64d17cf9ea550f1099c202d83795aa967428ebdf335c9f7</span><br><span class="line"></span><br><span class="line">root@docker-server1:~<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">alpine              latest              d4ff818577bc        2 weeks ago         5.6MB</span><br><span class="line">root@docker-server1:~<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+<p>容器操作基础命令：</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/1020690588.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="空是一种态度">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yanglulin's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/p/1020690588.html" class="post-title-link" itemprop="url">ansible部署k8s集群</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-02 11:03:58" itemprop="dateCreated datePublished" datetime="2021-07-02T11:03:58+08:00">2021-07-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 16:17:26" itemprop="dateModified" datetime="2021-07-07T16:17:26+08:00">2021-07-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">服务器IP</th>
+<th align="center">主机名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">k8s master1</td>
+<td align="center">k8s-master1.magedu.local</td>
+<td align="center">172.31.6.101</td>
+</tr>
+<tr>
+<td align="center">k8s master2</td>
+<td align="center">k8s-master2.magedu.local</td>
+<td align="center">172.31.6.102</td>
+</tr>
+<tr>
+<td align="center">k8s master3</td>
+<td align="center">k8s-master3.magedu.local</td>
+<td align="center">172.31.6.103</td>
+</tr>
+<tr>
+<td align="center">ectd1</td>
+<td align="center">k8s-etcd1.magedu.local</td>
+<td align="center">172.31.6.104</td>
+</tr>
+<tr>
+<td align="center">etcd2</td>
+<td align="center">k8s-etcd2.magedu.local</td>
+<td align="center">172.31.6.105</td>
+</tr>
+<tr>
+<td align="center">etcd3</td>
+<td align="center">k8s-etcd3.magedu.local</td>
+<td align="center">172.31.6.106</td>
+</tr>
+<tr>
+<td align="center">node1</td>
+<td align="center">k8s-node1.magedu.local</td>
+<td align="center">172.31.6.107</td>
+</tr>
+<tr>
+<td align="center">node2</td>
+<td align="center">k8s-node2.magedu.local</td>
+<td align="center">172.31.6.108</td>
+</tr>
+<tr>
+<td align="center">node3</td>
+<td align="center">k8s-node3.magedu.local</td>
+<td align="center">172.31.6.109</td>
+</tr>
+</tbody></table>
+<p>1.在每个节点安装依赖工具</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt-get update &amp;&amp; apt-get upgrade -y &amp;&amp; apt-get dist-upgrade -y</span><br><span class="line"><span class="comment"># 安装python2</span></span><br><span class="line">apt-get install python2.7</span><br><span class="line"><span class="comment"># Ubuntu16.04可能需要配置以下软连接</span></span><br><span class="line">ln -s /usr/bin/python2.7 /usr/bin/python</span><br></pre></td></tr></table></figure>
+
+<p>2.在部署节点安装ansible及准备ssh免密登录</p>
+<p>2.1安装ansible</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意pip 21.0以后不再支持python2和python3.5，需要如下安装</span></span><br><span class="line"><span class="comment"># To install pip for Python 2.7 install it from https://bootstrap.pypa.io/2.7/ :</span></span><br><span class="line">curl -O https://bootstrap.pypa.io/pip/2.7/get-pip.py</span><br><span class="line">python get-pip.py</span><br><span class="line">python -m pip install --upgrade <span class="string">&quot;pip &lt; 21.0&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># pip安装ansible(国内如果安装太慢可以直接用pip阿里云加速)</span></span><br><span class="line">pip install ansible -i https://mirrors.aliyun.com/pypi/simple/</span><br></pre></td></tr></table></figure>
+
+<p>2.2在ansible控制端配置免密码登录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br><span class="line"></span><br><span class="line">ssh-copy-id <span class="variable">$IPs</span> <span class="comment">#$IPs为所有节点地址包括自身，按照提示输入yes 和root密码</span></span><br></pre></td></tr></table></figure>
+
+<p>3.在部署节点编排k8s安装</p>
+<p>3.1下载项目源码、二进制及离线镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载工具脚本ezdown，举例使用kubeasz版本3.0.0</span></span><br><span class="line"><span class="built_in">export</span> release=3.0.0</span><br><span class="line">curl -C- -fLO --retry 3 https://github.com/easzlab/kubeasz/releases/download/<span class="variable">$&#123;release&#125;</span>/ezdown</span><br><span class="line">chmod +x ./ezdown</span><br><span class="line"><span class="comment"># 使用工具脚本下载</span></span><br><span class="line">./ezdown -D</span><br></pre></td></tr></table></figure>
+
+<p>上述脚本运行成功后，所有文件（kubeasz代码、二进制、离线镜像）均已整理好放入目录<code>/etc/kubeasz</code></p>
+<p>3.2创建集群配置实例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ezctl new k8s-01</span><br><span class="line">2021-01-19 10:48:23 DEBUG generate custom cluster files <span class="keyword">in</span> /etc/kubeasz/clusters/k8s-01</span><br><span class="line">2021-01-19 10:48:23 DEBUG <span class="built_in">set</span> version of common plugins</span><br><span class="line">2021-01-19 10:48:23 DEBUG cluster k8s-01: files successfully created.</span><br><span class="line">2021-01-19 10:48:23 INFO next steps 1: to config <span class="string">&#x27;/etc/kubeasz/clusters/k8s-01/hosts&#x27;</span></span><br><span class="line">2021-01-19 10:48:23 INFO next steps 2: to config <span class="string">&#x27;/etc/kubeasz/clusters/k8s-01/config.yml&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后根据提示配置’/etc/kubeasz/clusters/k8s-01/hosts’ 和 ‘/etc/kubeasz/clusters/k8s-01/config.yml’：根据前面节点规划修改hosts 文件和其他集群层面的主要配置选项；其他集群组件等配置项可以在config.yml 文件中修改</p>
+<p>3.3开始安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一键安装</span></span><br><span class="line">ezctl setup k8s-01 all</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者分步安装，具体使用 ezctl help setup 查看分步安装帮助信息</span></span><br><span class="line"><span class="comment"># ezctl setup k8s-01 01</span></span><br><span class="line"><span class="comment"># ezctl setup k8s-01 02</span></span><br><span class="line"><span class="comment"># ezctl setup k8s-01 03</span></span><br><span class="line"><span class="comment"># ezctl setup k8s-01 04</span></span><br></pre></td></tr></table></figure>
+
+<p>token登录dashboard</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">root@yang:~<span class="comment"># kubectl -n kube-system get svc </span></span><br><span class="line">NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE</span><br><span class="line">dashboard-metrics-scraper   ClusterIP   10.68.78.116    &lt;none&gt;        8000/TCP                 37m</span><br><span class="line">kube-dns                    ClusterIP   10.68.0.2       &lt;none&gt;        53/UDP,53/TCP,9153/TCP   37m</span><br><span class="line">kube-dns-upstream           ClusterIP   10.68.235.115   &lt;none&gt;        53/UDP,53/TCP            37m</span><br><span class="line">kubernetes-dashboard        NodePort    10.68.185.145   &lt;none&gt;        443:31667/TCP            37m</span><br><span class="line">metrics-server              ClusterIP   10.68.238.19    &lt;none&gt;        443/TCP                  37m</span><br><span class="line">node-local-dns              ClusterIP   None            &lt;none&gt;        9253/TCP                 37m</span><br><span class="line"></span><br><span class="line">root@yang:~<span class="comment"># kubectl -n kube-system get secret | grep admin-user</span></span><br><span class="line">admin-user-token-p5mdt                           kubernetes.io/service-account-token   3      38m</span><br><span class="line"></span><br><span class="line">root@yang:~<span class="comment"># kubectl -n kube-system describe secret admin-user-token-p5mdt</span></span><br><span class="line">Name:         admin-user-token-p5mdt</span><br><span class="line">Namespace:    kube-system</span><br><span class="line">Labels:       &lt;none&gt;</span><br><span class="line">Annotations:  kubernetes.io/service-account.name: admin-user</span><br><span class="line">              kubernetes.io/service-account.uid: 4cc34052-6297-4bf6-8cc0-0af7b304a985</span><br><span class="line"></span><br><span class="line">Type:  kubernetes.io/service-account-token</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">====</span><br><span class="line">ca.crt:     1350 bytes</span><br><span class="line">namespace:  11 bytes</span><br><span class="line">token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IkFRUUVjaXhOQUNzeTlKN1UxeXkyTXpYQ2hleDNjbVhnQzZrSzBmU1BZMmcifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLXA1bWR0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI0Y2MzNDA1Mi02Mjk3LTRiZjYtOGNjMC0wYWY3YjMwNGE5ODUiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06YWRtaW4tdXNlciJ9.WDSjyA8rckXPdnZEQT7j0smC4qBRy4tDizOsQ2_ukZ6sMeU1Q46LAGGXcu7DTddXN0jc89mCKN_IG1AJryRJTTP21ZsPbCYp1yokIMfwQJd3DWYP9PvmJcVbnQA8QbBIHt0ae1DZTJoHkz4_qPAHnuYeEEOA5-2XK-Q3S68bxBl3CPvBw9QCXZWo-xaHMeLpwKHjlSLTit3V_58Am0BO5ROdaVxN7DnP2Gw56FdlZSD1cheHfNnUMVSfgu4KRiZ16a6TNXDuqhqykE8vPqVw1Sw73GbcbaqNrRDybj_Gb-kOlJNpKp4GwIj6zbbZrbiQpdWJu_X6KTxXp0w1SlYNGA</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707161645533.png" alt="image-20210707161645533"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/3969449403.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -823,7 +1067,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
