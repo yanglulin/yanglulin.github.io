@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="h harbor官网地址 https:&#x2F;&#x2F;vmware.github.io&#x2F;harbor&#x2F;cn&#x2F; harbor官方github地址 https:&#x2F;&#x2F;github.com&#x2F;goharbor&#x2F;harbor 下载地址 https:&#x2F;&#x2F;github.com&#x2F;goharbor&#x2F;harbor&#x2F;releases 安装文档 https:&#x2F;&#x2F;goharbor.io&#x2F;docs&#x2F;2.0.0&#x2F;install-config">
+<meta property="og:type" content="article">
+<meta property="og:title" content="harbor部署">
+<meta property="og:url" content="http://yoursite.com/p/2713677665.html">
+<meta property="og:site_name" content="yanglulin&#39;s blog">
+<meta property="og:description" content="h harbor官网地址 https:&#x2F;&#x2F;vmware.github.io&#x2F;harbor&#x2F;cn&#x2F; harbor官方github地址 https:&#x2F;&#x2F;github.com&#x2F;goharbor&#x2F;harbor 下载地址 https:&#x2F;&#x2F;github.com&#x2F;goharbor&#x2F;harbor&#x2F;releases 安装文档 https:&#x2F;&#x2F;goharbor.io&#x2F;docs&#x2F;2.0.0&#x2F;install-config">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707172419136.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707172447391.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707172551812.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707173047938.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707174552675.png">
+<meta property="og:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707174723806.png">
+<meta property="article:published_time" content="2021-07-07T08:58:05.000Z">
+<meta property="article:modified_time" content="2021-07-07T09:47:53.046Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707172419136.png">
+
+<link rel="canonical" href="http://yoursite.com/p/2713677665.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>harbor部署 | yanglulin's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">yanglulin's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/2713677665.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="空是一种态度">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yanglulin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          harbor部署
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-07 16:58:05 / 修改时间：17:47:53" itemprop="dateCreated datePublished" datetime="2021-07-07T16:58:05+08:00">2021-07-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>h</p>
+<p>harbor官网地址</p>
+<p><a target="_blank" rel="noopener" href="https://vmware.github.io/harbor/cn/">https://vmware.github.io/harbor/cn/</a></p>
+<p>harbor官方github地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor">https://github.com/goharbor/harbor</a></p>
+<p>下载地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/releases">https://github.com/goharbor/harbor/releases</a></p>
+<p>安装文档</p>
+<p><a target="_blank" rel="noopener" href="https://goharbor.io/docs/2.0.0/install-config/">https://goharbor.io/docs/2.0.0/install-config/</a></p>
+<p>安装步骤</p>
+<p>1、安装docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line"></span><br><span class="line">curl -fsSL https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">sudo add-apt-repository <span class="string">&quot;deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu <span class="subst">$(lsb_release -cs)</span> stable&quot;</span></span><br><span class="line"></span><br><span class="line">sudo apt-get -y update</span><br><span class="line"></span><br><span class="line">apt install -y docker-ce=5:19.03.15~3-0~ubuntu-bionic docker-ce-cli=5:19.03.15~3-0~ubuntu-bionic</span><br><span class="line"></span><br><span class="line">systemctl restart docker &amp;&amp; systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
+
+<p>2、下载harbor离线完整安装包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@harbor:~<span class="comment"># cd /usr/local/src/</span></span><br><span class="line">root@harbor:/usr/<span class="built_in">local</span>/src<span class="comment"># wget https://github.com/goharbor/harbor/releases/download/v1.10.8/harbor-offline-installer-v1.10.8.tgz</span></span><br></pre></td></tr></table></figure>
+
+<p>3、配置harbor</p>
+<p>3.1解压并编辑harbor.yml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@harbor:/usr/<span class="built_in">local</span>/src<span class="comment"># tar xvf harbor-offline-installer-v1.10.8.tgz</span></span><br><span class="line">root@harbor:/usr/<span class="built_in">local</span>/src/harbor<span class="comment"># apt install python-pip -y</span></span><br><span class="line">root@harbor:/usr/<span class="built_in">local</span>/src/harbor<span class="comment"># pip install --upgrade pip</span></span><br><span class="line">root@harbor:/usr/<span class="built_in">local</span>/src/harbor<span class="comment"># pip install docker-compose</span></span><br></pre></td></tr></table></figure>
+
+<p>3.2配置ssl认证</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@harbor:~<span class="comment"># mkdir /data/harbor/certs -p</span></span><br><span class="line">root@harbor:~<span class="comment"># openssl genrsa -out /data/harbor/certs/harbor-ca.key 2048</span></span><br><span class="line">root@harbor:~<span class="comment"># openssl req -x509 -new -nodes -key /data/harbor/certs/harbor-ca.key -subj &quot;/CN=harbor.magedu.local&quot; -days 7120 -out /data/harbor/certs/harbor-ca.crt </span></span><br><span class="line"><span class="comment">#报错执行以下语句</span></span><br><span class="line">root@harbor:~<span class="comment"># openssl rand -writerand .rnd</span></span><br><span class="line">root@harbor:/data/harbor/certs<span class="comment"># ll</span></span><br><span class="line">total 16</span><br><span class="line">drwxr-xr-x 2 root root 4096 Jul  7 17:18 ./</span><br><span class="line">drwxr-xr-x 3 root root 4096 Jul  7 17:17 ../</span><br><span class="line">-rw-r--r-- 1 root root 1139 Jul  7 17:19 harbor-ca.crt</span><br><span class="line">-rw------- 1 root root 1679 Jul  7 17:17 harbor-ca.key</span><br></pre></td></tr></table></figure>
+
+<p>3.3配置harbor.yml文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hostname: harbor.magedu.local</span><br><span class="line"></span><br><span class="line">certificate: /data/harbor/certs/harbor-ca.crt</span><br><span class="line">private_key: /data/harbor/certs/harbor-ca.key</span><br><span class="line"></span><br><span class="line">harbor_admin_password: harbor123456</span><br></pre></td></tr></table></figure>
+
+<p>4、开始部署</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@harbor:/usr/<span class="built_in">local</span>/src/harbor<span class="comment"># ./install.sh</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707172419136.png" alt="image-20210707172419136"></p>
+<p>4.1部署完成查看本地镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@harbor:~<span class="comment"># docker images</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707172447391.png" alt="image-20210707172447391"></p>
+<p>4.2验证本地端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@harbor:~<span class="comment"># ss -tnl</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707172551812.png" alt="image-20210707172551812"></p>
+<p>4.3web访问harbor界面</p>
+<p><img src="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707173047938.png" alt="image-20210707173047938"></p>
+<p>4.4配置docker使用harbor仓库上传下载镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master1:~<span class="comment"># vim /etc/systemd/system/docker.service</span></span><br><span class="line">ExecStart=/opt/kube/bin/dockerd --insecure-registry 172.31.6.110 --insecure-registry harbor.magedu.local</span><br><span class="line">root@k8s-master1:~<span class="comment"># systemctl daemon-reload </span></span><br><span class="line">root@k8s-master1:~<span class="comment"># systemctl restart docker </span></span><br><span class="line">root@k8s-master1:~<span class="comment"># systemctl status docker </span></span><br><span class="line">root@k8s-master1:~<span class="comment"># docker login harbor.magedu.local</span></span><br><span class="line">Username: admin</span><br><span class="line">Password: </span><br><span class="line">WARNING! Your password will be stored unencrypted <span class="keyword">in</span> /root/.docker/config.json.</span><br><span class="line">Configure a credential helper to remove this warning. See</span><br><span class="line">https://docs.docker.com/engine/reference/commandline/login/<span class="comment">#credentials-store</span></span><br><span class="line"></span><br><span class="line">Login Succeeded</span><br><span class="line">root@k8s-master1:~<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+<p>4.5测试上传和下载镜像</p>
+<p>4.5.1镜像打tag</p>
+<p>修改images的名称，不修改成指定格式无法将镜像上传到harbor仓库，格式为：HarborIP/项目名/image 名字：版本号</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master1:~<span class="comment"># docker tag nginx:latest harbor.magedu.local/web/nginx:v1</span></span><br></pre></td></tr></table></figure>
+
+<p>4.5.2在harbor管理界面创建项目</p>
+<p><img src="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707174552675.png" alt="image-20210707174552675"></p>
+<p>4.5.3将镜像push到harbor</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@k8s-master1:~<span class="comment"># docker push harbor.magedu.local/web/nginx:v1</span></span><br><span class="line">The push refers to repository [harbor.magedu.local/web/nginx]</span><br><span class="line">9d1af766c818: Pushed </span><br><span class="line">d97733c0a3b6: Pushed </span><br><span class="line">c553c6ba5f13: Pushed </span><br><span class="line">48b4a40de359: Pushed </span><br><span class="line">ace9ed9bcfaf: Pushed </span><br><span class="line">764055ebc9a7: Pushed </span><br><span class="line">v1: digest: sha256:1c70a669bbf07f9862f269162d776c35144b116938d1becb4e4676270cff8f75 size: 1570</span><br><span class="line">root@k8s-master1:~<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+<p>4.5.4harbor界面验证镜像上传成功</p>
+<p><img src="https://yanglulin.oss-cn-beijing.aliyuncs.com/image-20210707174723806.png" alt="image-20210707174723806"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/p/1809349553.html" rel="prev" title="k8s运行web服务">
+      <i class="fa fa-chevron-left"></i> k8s运行web服务
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">空是一种态度</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
